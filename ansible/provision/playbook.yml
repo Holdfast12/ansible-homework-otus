@@ -1,0 +1,21 @@
+---
+- hosts: "webservers"
+  remote_user: vagrant
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: "install nginx"
+    ansible.builtin.dnf:
+      name: nginx
+      state: present
+      
+  - name: "start nginx"
+    ansible.builtin.systemd:
+      name: nginx
+      enabled: yes
+  handlers:     
+  - name: Restart nginx
+    service:
+      name: nginx
+      state: restarted
