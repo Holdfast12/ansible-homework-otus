@@ -28,10 +28,6 @@ Vagrant.configure("2") do |config|
 		  vb.customize ["modifyvm", :id, "--memory", "512"]
 		end
 		box.vm.provision "shell", inline: <<-SHELL
-# 		  sudo yum -y update
-#		  sudo yum install -y nfs-utils
-#		  sudo yum install -y epel-release
-#		  sudo yum install -y sshfs
 		  echo -en "192.168.1.2 ansible\n192.168.1.3 server1\n192.168.1.4 server2\n\n" | sudo tee -a /etc/hosts
 		  cat /vagrant/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
 		  cp /vagrant/id_rsa /home/vagrant/.ssh
@@ -44,3 +40,6 @@ Vagrant.configure("2") do |config|
 	end
   end
 end
+
+# запуск плейбука
+# ansible-playbook /vagrant/ansible/provision/playbook.yml
